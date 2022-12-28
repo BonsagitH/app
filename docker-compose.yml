@@ -1,0 +1,45 @@
+version: "3.1"
+
+services:
+
+  appphpserver:
+
+    image: webdevops/php-apache:7.4
+
+    container_name: appphpserver
+
+    working_dir: /app
+
+    volumes:
+
+      - ./:/app
+
+    environment:
+
+      - WEB_DOCUMENT_ROOT=/app/webroot
+
+    ports:
+
+      - "80:80"
+  appmysqlserver:
+
+    image: mariadb
+
+    container_name: appmysqlserver
+
+    working_dir: /app
+
+    volumes:
+
+      - .:/app
+
+      - ./tmp/data/mysql_db:/var/lib/mysql
+
+    env_file:
+
+      - mysql.env
+    
+
+    ports:
+
+      - "3306:3306"
